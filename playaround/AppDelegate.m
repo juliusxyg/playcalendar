@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "CalendarViewController.h"
 
 @implementation AppDelegate
 
@@ -18,6 +19,12 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    CalendarViewController *calendarVC = [[CalendarViewController alloc] initWithNibName:nil bundle:nil];
+    UINavigationController *naviC = [[UINavigationController alloc] initWithRootViewController:calendarVC];
+    naviC.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+    
+    self.window.rootViewController = naviC;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

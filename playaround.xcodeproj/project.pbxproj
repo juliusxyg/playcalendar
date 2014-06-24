@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B51E94EF195929A7002A67D8 /* DayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B51E94EE195929A7002A67D8 /* DayCell.m */; };
 		B5F7F60A1957CE1200F9E765 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F7F6091957CE1200F9E765 /* UIKit.framework */; };
 		B5F7F60C1957CE1200F9E765 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F7F60B1957CE1200F9E765 /* Foundation.framework */; };
 		B5F7F60E1957CE1200F9E765 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F7F60D1957CE1200F9E765 /* CoreGraphics.framework */; };
@@ -24,6 +25,7 @@
 		B5F7F6301957CE1200F9E765 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F7F60F1957CE1200F9E765 /* CoreData.framework */; };
 		B5F7F6381957CE1200F9E765 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B5F7F6361957CE1200F9E765 /* InfoPlist.strings */; };
 		B5F7F63B1957CE1200F9E765 /* playaroundTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F7F63A1957CE1200F9E765 /* playaroundTests.m */; };
+		B5F7F6481957CE4300F9E765 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F7F6471957CE4300F9E765 /* CalendarViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B51E94ED195929A7002A67D8 /* DayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayCell.h; sourceTree = "<group>"; };
+		B51E94EE195929A7002A67D8 /* DayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayCell.m; sourceTree = "<group>"; };
 		B5F7F6061957CE1200F9E765 /* playaround.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = playaround.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5F7F6091957CE1200F9E765 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B5F7F60B1957CE1200F9E765 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -58,6 +62,8 @@
 		B5F7F6371957CE1200F9E765 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B5F7F6391957CE1200F9E765 /* playaroundTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = playaroundTests.h; sourceTree = "<group>"; };
 		B5F7F63A1957CE1200F9E765 /* playaroundTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = playaroundTests.m; sourceTree = "<group>"; };
+		B5F7F6461957CE4300F9E765 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		B5F7F6471957CE4300F9E765 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +126,7 @@
 		B5F7F6111957CE1200F9E765 /* playaround */ = {
 			isa = PBXGroup;
 			children = (
+				B5F7F6441957CE2200F9E765 /* Classes */,
 				B5F7F61A1957CE1200F9E765 /* AppDelegate.h */,
 				B5F7F61B1957CE1200F9E765 /* AppDelegate.m */,
 				B5F7F6231957CE1200F9E765 /* playaround.xcdatamodeld */,
@@ -159,6 +166,25 @@
 				B5F7F6361957CE1200F9E765 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B5F7F6441957CE2200F9E765 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				B5F7F6451957CE2800F9E765 /* Calendar */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		B5F7F6451957CE2800F9E765 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				B5F7F6461957CE4300F9E765 /* CalendarViewController.h */,
+				B5F7F6471957CE4300F9E765 /* CalendarViewController.m */,
+				B51E94ED195929A7002A67D8 /* DayCell.h */,
+				B51E94EE195929A7002A67D8 /* DayCell.m */,
+			);
+			name = Calendar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,6 +299,8 @@
 				B5F7F6181957CE1200F9E765 /* main.m in Sources */,
 				B5F7F61C1957CE1200F9E765 /* AppDelegate.m in Sources */,
 				B5F7F6251957CE1200F9E765 /* playaround.xcdatamodeld in Sources */,
+				B5F7F6481957CE4300F9E765 /* CalendarViewController.m in Sources */,
+				B51E94EF195929A7002A67D8 /* DayCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,6 +473,7 @@
 				B5F7F6401957CE1200F9E765 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B5F7F6411957CE1200F9E765 /* Build configuration list for PBXNativeTarget "playaroundTests" */ = {
 			isa = XCConfigurationList;
@@ -453,6 +482,7 @@
 				B5F7F6431957CE1200F9E765 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
