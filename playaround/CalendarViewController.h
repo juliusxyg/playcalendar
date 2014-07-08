@@ -11,13 +11,23 @@
 @interface CalendarViewController : UIViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 {
     NSArray *cellsInMonth;
+  //  NSArray *cellsOfMonth;
     
-    NSDate *firstDateOfThisMonth;
+  //  NSDate *firstDateOfThisMonth;
     
     int numberOfDays;
-    int numberOfWeeks;
+  //  int numberOfWeeks;
+    
+    int currentMonth;
+    int currentYear;
+
+    int cellViewMonth;//cell 显示哪个月份看这个参数
+    
+    BOOL scrollDirectionDetermined;
 }
 
-@property (nonatomic,retain) UICollectionView *calendarView;
+//@property (nonatomic,retain) UICollectionView *calendarView;
+@property (nonatomic,retain) UICollectionView *monthsView;
+
 
 @end

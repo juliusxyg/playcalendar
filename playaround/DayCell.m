@@ -29,6 +29,14 @@
     [dayLabel setText:text];
 }
 
+-(void)prepareForReuse
+{
+    [super prepareForReuse];
+    dayLabel.text = nil;
+    dayLabel.backgroundColor = [UIColor whiteColor];
+    dayLabel.enabled = YES;
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

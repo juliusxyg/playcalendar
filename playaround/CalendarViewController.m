@@ -8,6 +8,8 @@
 
 #import "CalendarViewController.h"
 #import "DayCell.h"
+#import "MonthCell.h"
+//这个头用于设置背景颜色，边框颜色， uiview.layer.borderColor = [[UIColor blackColor] CGColor]
 #import <QuartzCore/QuartzCore.h>
 
 @interface CalendarViewController ()
@@ -16,19 +18,16 @@
 
 @implementation CalendarViewController
 
-@synthesize calendarView;
+@synthesize monthsView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        NSMutableArray *tmp = [[NSMutableArray alloc] init];
-        [tmp addObject:[[NSArray alloc] initWithObjects:@"Sun",@"Mon",@"Tue",@"Wed",@"Thu",@"Fri",@"Sat", nil]];
-        [tmp addObject:[self getDayCellsOfMonth:2015 month:5]];
-        cellsInMonth = tmp;
-        
-        
+        currentMonth = 7;
+        currentYear = 2014;
+        cellViewMonth = currentMonth;
     }
     return self;
 }
@@ -37,24 +36,34 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    // navi bar
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithTitle:@"Menu" style:UIBarButtonItemStylePlain target:self action:@selector(openMenu)];
     
     [self.navigationItem setLeftBarButtonItem:menuButton];
-    NSDateFormatter *format = [[NSDateFormatter alloc] init];
-    [format setDateFormat:@"YYYY MMM"];
-    self.navigationItem.title = [format stringFromDate:firstDateOfThisMonth];
     
-    CGRect calendarRect = CGRectMake((320-7*45)/2, 49, 320, (25+45*numberOfWeeks));
-    UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc] init];
+    //months
+    float mx = 0;
+    float my = 49;
+    float mw = 320;
+    float mh = 25+25*6;
+    CGRect monthRect = CGRectMake(mx, my, mw, mh);
+    UICollectionViewFlowLayout *monthFlowlayout = [[UICollectionViewFlowLayout alloc] init];
+    [monthFlowlayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    monthsView = [[UICollectionView alloc] initWithFrame:monthRect collectionViewLayout:monthFlowlayout];
+    [monthsView registerClass:[MonthCell class] forCellWithReuseIdentifier:@"MonthCell"];
     
-    calendarView = [[UICollectionView alloc] initWithFrame:calendarRect collectionViewLayout:flowlayout];
-    [calendarView registerClass:[DayCell class] forCellWithReuseIdentifier:@"DayCell"];
+    monthsView.backgroundColor=[UIColor whiteColor];
     
-    calendarView.backgroundColor=[UIColor whiteColor];
+    monthsView.delegate=self;
+    monthsView.dataSource=self;
+    monthsView.pagingEnabled = YES;
+    monthsView.tag = 0;
+    [monthsView setShowsHorizontalScrollIndicator:NO];
     
-    calendarView.delegate=self;
-    calendarView.dataSource=self;
-    [self.view addSubview:calendarView];
+    NSIndexPath *newIndexPath = [NSIndexPath indexPathForItem:1 inSection:0];
+    [monthsView scrollToItemAtIndexPath:newIndexPath atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
+    [self.view addSubview:monthsView];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,6 +75,19 @@
 -(void)openMenu
 {}
 
+-(NSDate*)firstDateOfCurrentMonth
+{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *aDateComp = [[NSDateComponents alloc] init];
+    [aDateComp setYear:currentYear];
+    [aDateComp setMonth:currentMonth];
+    [aDateComp setDay:1];
+    NSDate *aDate = [calendar dateFromComponents:aDateComp];
+    NSDate *aDateLocale = [aDate dateByAddingTimeInterval:[[NSTimeZone localTimeZone] secondsFromGMTForDate:aDate]];
+    
+    return aDateLocale;
+}
+
 - (NSArray*)getDayCellsOfMonth:(int)year month:(int)month
 {
     NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -75,20 +97,19 @@
     [aDateComp setDay:1];
     NSDate *aDate = [calendar dateFromComponents:aDateComp];
     NSDate *aDateLocale = [aDate dateByAddingTimeInterval:[[NSTimeZone localTimeZone] secondsFromGMTForDate:aDate]];
-    firstDateOfThisMonth = aDateLocale;
     //NSLog(@"%@", [aDateLocale description]);
     int startWeekDay = [calendar ordinalityOfUnit:NSWeekdayCalendarUnit inUnit:NSWeekCalendarUnit forDate:aDateLocale];
     //NSLog(@"%d", startWeekDay);
     //获取这一个月的天数
     NSRange dayRange = [calendar rangeOfUnit:NSDayCalendarUnit inUnit:NSMonthCalendarUnit forDate:aDateLocale];
     //NSLog(@"%d to %d", dayRange.location, dayRange.length);
-    NSRange weekRange = [calendar rangeOfUnit:NSWeekCalendarUnit inUnit:NSMonthCalendarUnit forDate:aDateLocale];
+   // NSRange weekRange = [calendar rangeOfUnit:NSWeekCalendarUnit inUnit:NSMonthCalendarUnit forDate:aDateLocale];
     //NSLog(@"%d to %d", weekRange.location, weekRange.length);
     
     numberOfDays = dayRange.length;
-    numberOfWeeks = weekRange.length;
+   // numberOfWeeks = weekRange.length; //定死6周，固定高度
     
-    int dayEntriesTotal = numberOfWeeks * 7;
+    int dayEntriesTotal = 6 * 7;
     NSMutableArray *dayEntries = [[NSMutableArray alloc] init];
     
     int dayEntryCount=0;
@@ -131,39 +152,78 @@
 // number of items
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section
 {
-    return [cellsInMonth[section] count];
+    if(view.tag == 1)
+    {
+        return [cellsInMonth[section] count];
+    }else{
+        return 3;
+    }
 }
 // 2 sections , 1 for Sun ~ Sat , 1 for day cells
 - (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView
 {
-    return [cellsInMonth count];
+    if(collectionView.tag == 1)
+    {
+        return [cellsInMonth count];
+    }else{
+        return 1;
+    }
 }
-// 3
+// 3 显示cell
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    DayCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"DayCell" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor whiteColor];
-    
-    if(indexPath.section == 0)
+    if(cv.tag == 1)
     {
-        NSString *weekName = [[cellsInMonth objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-        [cell setDayLabelText:weekName];
-        [cell.dayLabel setBackgroundColor:[UIColor greenColor]];
-    }else{
-        NSDate *day = [[[cellsInMonth objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"date"];
-        NSDateFormatter *format = [[NSDateFormatter alloc] init];
-        [format setDateFormat:@"d"];
-        [cell setDayLabelText:[format stringFromDate:day]];
+        DayCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"DayCell" forIndexPath:indexPath];
+        cell.backgroundColor = [UIColor whiteColor];
         
-        NSString *inMonth = [[[cellsInMonth objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"inMonth"];
-        if([inMonth isEqualToString:@"NO"]){
-            [cell.dayLabel setEnabled:FALSE];
+        if(indexPath.section == 0)
+        {
+            NSString *weekName = [[cellsInMonth objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+            [cell setDayLabelText:weekName];
+            [cell.dayLabel setBackgroundColor:[UIColor greenColor]];
+        }else{
+            NSDate *day = [[[cellsInMonth objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"date"];
+            NSDateFormatter *format = [[NSDateFormatter alloc] init];
+            [format setDateFormat:@"d"];
+            [cell setDayLabelText:[format stringFromDate:day]];
+            
+            NSString *inMonth = [[[cellsInMonth objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"inMonth"];
+            if([inMonth isEqualToString:@"NO"]){
+                [cell.dayLabel setEnabled:FALSE];
+            }
         }
-    }
+        
+        return cell;
+    }else{
+        MonthCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"MonthCell" forIndexPath:indexPath];
+        cell.backgroundColor = [UIColor whiteColor];
+        
+        NSMutableArray *tmp = [[NSMutableArray alloc] init];
+        [tmp addObject:[[NSArray alloc] initWithObjects:@"Sun",@"Mon",@"Tue",@"Wed",@"Thu",@"Fri",@"Sat", nil]];
+        [tmp addObject:[self getDayCellsOfMonth:currentYear month:cellViewMonth]];
+        cellsInMonth = tmp;
+        
+        // calendar
+        [cell.calendarView registerClass:[DayCell class] forCellWithReuseIdentifier:@"DayCell"];
+        
+        cell.calendarView.delegate=self;
+        cell.calendarView.dataSource=self;
+        cell.calendarView.tag = 1;
+        
+        
+        [cell.contentView addSubview:cell.calendarView];
+        //修改导航的title为当月日期
+        NSDateFormatter *format = [[NSDateFormatter alloc] init];
+        [format setDateFormat:@"YYYY MMM"];
+        self.navigationItem.title = [format stringFromDate:[self firstDateOfCurrentMonth]];
 
-    return cell;
+        return cell;
+    }
+    
 }
-#pragma mark - UICollectionViewDelegate 
+
+#pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // TODO: Select Item
@@ -174,15 +234,22 @@
 }
 #pragma mark – UICollectionViewDelegateFlowLayout
 
-// set sell size
+// set cell size
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGSize retval = CGSizeMake(45, 25);
-    if(indexPath.section == 0)
-    {
-        retval = CGSizeMake(45, 25);
+    if(collectionView.tag == 1)
+    {   //天cell的大小
+        CGSize retval = CGSizeMake(45, 25);
+        if(indexPath.section == 0)
+        {
+            retval = CGSizeMake(45, 25);
+        }
+        return retval;
+    }else{
+        //月cell的大小
+        CGSize retval = CGSizeMake(320, 25+25*6);
+        return retval;
     }
-    return retval;
 }
 
 // set margin
@@ -200,6 +267,63 @@
 {
     return 0.0f;
 }
+//scroll
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    //每次滚动前重置判断
+    scrollDirectionDetermined = NO;
+}
+//这个函数一边滚动一边会被调用，所以有个标志去判断是不是已经确定方向
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if(scrollView.tag != 0)
+        return;
+    CGPoint v = [scrollView.panGestureRecognizer translationInView:scrollView.superview];
+    //Fix me: 这里还是有问题的，先往右拖一点，然后猛的往左滑动，会出现错误
+    if(v.x == 0.0f)
+    {  
+        scrollDirectionDetermined = NO;
+        cellViewMonth = currentMonth;
+    }
+    if(scrollDirectionDetermined == NO){
+        //判断滚动方向
+        if (v.x > 0.0f) {
+            //scrolling rightwards
+            cellViewMonth--;
+            scrollDirectionDetermined = YES;
+        } else if(v.x < 0.0f) {
+            //scrolling leftwards
+            cellViewMonth++;
+            scrollDirectionDetermined = YES;
+        }
+    }
+    
+    
+}
+//滚动完毕调用
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if(scrollView.tag != 0)
+        return;
+    //判断是不是切换了cell，如果有，就重新赋值当前月份，否的反过来赋值
+    float contentOffsetWhenFullyScrolledRight = monthsView.frame.size.width * (3-1);
+    if(scrollView.contentOffset.x==0.0f || scrollView.contentOffset.x == contentOffsetWhenFullyScrolledRight)
+    {
+        currentMonth = cellViewMonth;
+    }else{
+        cellViewMonth = currentMonth;
+    }
+    NSLog(@"current month: %d", currentMonth);
+    NSLog(@"cell view month: %d", cellViewMonth);
+    
+    NSIndexPath *newIndexPath = [NSIndexPath indexPathForItem:1 inSection:0];
+    
+    [monthsView scrollToItemAtIndexPath:newIndexPath atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
+    [monthsView reloadData];
+    scrollDirectionDetermined = NO;
+}
+
+
 
 
 @end
