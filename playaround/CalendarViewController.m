@@ -10,7 +10,7 @@
 #import "DayCell.h"
 #import "MonthCell.h"
 //这个头用于设置背景颜色，边框颜色， uiview.layer.borderColor = [[UIColor blackColor] CGColor]
-#import <QuartzCore/QuartzCore.h>
+//#import <QuartzCore/QuartzCore.h>
 
 @interface CalendarViewController ()
 
@@ -63,6 +63,11 @@
     NSIndexPath *newIndexPath = [NSIndexPath indexPathForItem:1 inSection:0];
     [monthsView scrollToItemAtIndexPath:newIndexPath atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
     [self.view addSubview:monthsView];
+    
+    //progress view
+    cp = [[CircleProgressView alloc] initWithFrame:CGRectMake(0, 225, 320, 255)];
+    [cp setLineWidth:10.0f];
+    cp.delegate = self;
     
 }
 
@@ -182,6 +187,7 @@
             NSString *weekName = [[cellsInMonth objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
             [cell setDayLabelText:weekName];
             [cell.dayLabel setBackgroundColor:[UIColor greenColor]];
+            cell.validMonthDay = NO;
         }else{
             NSDate *day = [[[cellsInMonth objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"date"];
             NSDateFormatter *format = [[NSDateFormatter alloc] init];
@@ -191,6 +197,9 @@
             NSString *inMonth = [[[cellsInMonth objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectForKey:@"inMonth"];
             if([inMonth isEqualToString:@"NO"]){
                 [cell.dayLabel setEnabled:FALSE];
+                cell.validMonthDay = NO;
+            }else{
+                cell.validMonthDay = YES;
             }
         }
         
@@ -211,6 +220,12 @@
         cell.calendarView.dataSource=self;
         cell.calendarView.tag = 1;
         
+        //长按手势
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressOnDayCell:)];
+        longPress.allowableMovement = NO;
+        longPress.minimumPressDuration = 0.5f;
+        [cell.calendarView addGestureRecognizer:longPress];
+        
         
         [cell.contentView addSubview:cell.calendarView];
         //修改导航的title为当月日期
@@ -227,10 +242,26 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // TODO: Select Item
+    
+    if(collectionView.tag == 1){
+        DayCell *cell = (DayCell*)[collectionView cellForItemAtIndexPath:indexPath];
+        if(cell.validMonthDay)
+        {
+            cell.dayLabel.backgroundColor = [UIColor blueColor];
+        }
+    }
 }
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     // TODO: Deselect item
+    
+    if(collectionView.tag == 1){
+        DayCell *cell = (DayCell*)[collectionView cellForItemAtIndexPath:indexPath];
+        if(cell.validMonthDay)
+        {
+            cell.dayLabel.backgroundColor = [UIColor whiteColor];
+        }
+    }
 }
 #pragma mark – UICollectionViewDelegateFlowLayout
 
@@ -323,6 +354,41 @@
     scrollDirectionDetermined = NO;
 }
 
+#pragma mark – CircleProgressViewDelegate
+
+- (void)didFinishProgressing:(CircleProgressView*)cpv
+{
+    NSLog(@"got to add view");
+    [cpv removeFromSuperview];
+}
+
+#pragma mark – Long press
+- (void)longPressOnDayCell:(id)sender
+{
+    if([(UILongPressGestureRecognizer*)sender state] == UIGestureRecognizerStateBegan)
+    {
+        MonthCell *cell = (MonthCell*)[monthsView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]];
+        CGPoint p = [(UILongPressGestureRecognizer*)sender locationInView:cell.calendarView];
+        
+        NSIndexPath *indexPath = [cell.calendarView indexPathForItemAtPoint:p];
+        DayCell *day = (DayCell*)[cell.calendarView cellForItemAtIndexPath:indexPath];
+        
+        int dayInt = [day.dayLabel.text intValue];
+        if(dayInt >0 && YES == day.validMonthDay)
+        {
+            NSLog(@"%d-%d-%d", currentYear, currentMonth, dayInt);
+            [self.view addSubview:cp];
+            [cp startTimer];
+        }
+    }
+    
+    if([(UILongPressGestureRecognizer*)sender state] == UIGestureRecognizerStateChanged ||
+       [(UILongPressGestureRecognizer*)sender state] == UIGestureRecognizerStateEnded )
+    {
+        [cp stopTimer];
+        [cp removeFromSuperview];
+    }
+}
 
 
 

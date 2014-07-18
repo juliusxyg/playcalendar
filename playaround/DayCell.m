@@ -11,6 +11,7 @@
 @implementation DayCell
 
 @synthesize dayLabel;
+@synthesize validMonthDay;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -35,6 +36,8 @@
     dayLabel.text = nil;
     dayLabel.backgroundColor = [UIColor whiteColor];
     dayLabel.enabled = YES;
+    dayLabel.highlighted = NO;
+    validMonthDay = NO;
 }
 
 

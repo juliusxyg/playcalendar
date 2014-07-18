@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		B51E94EF195929A7002A67D8 /* DayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B51E94EE195929A7002A67D8 /* DayCell.m */; };
+		B5248630196B8E7A00CB7143 /* CircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = B524862F196B8E7A00CB7143 /* CircleProgressView.m */; };
+		B5248632196B94C400CB7143 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5248631196B94C400CB7143 /* QuartzCore.framework */; };
+		B57FCDFA19639D3B005E6C3C /* MonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B57FCDF919639D3B005E6C3C /* MonthCell.m */; };
 		B5F7F60A1957CE1200F9E765 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F7F6091957CE1200F9E765 /* UIKit.framework */; };
 		B5F7F60C1957CE1200F9E765 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F7F60B1957CE1200F9E765 /* Foundation.framework */; };
 		B5F7F60E1957CE1200F9E765 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F7F60D1957CE1200F9E765 /* CoreGraphics.framework */; };
@@ -41,6 +44,11 @@
 /* Begin PBXFileReference section */
 		B51E94ED195929A7002A67D8 /* DayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayCell.h; sourceTree = "<group>"; };
 		B51E94EE195929A7002A67D8 /* DayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayCell.m; sourceTree = "<group>"; };
+		B524862E196B8E7A00CB7143 /* CircleProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleProgressView.h; sourceTree = "<group>"; };
+		B524862F196B8E7A00CB7143 /* CircleProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleProgressView.m; sourceTree = "<group>"; };
+		B5248631196B94C400CB7143 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		B57FCDF819639D3B005E6C3C /* MonthCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonthCell.h; sourceTree = "<group>"; };
+		B57FCDF919639D3B005E6C3C /* MonthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonthCell.m; sourceTree = "<group>"; };
 		B5F7F6061957CE1200F9E765 /* playaround.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = playaround.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5F7F6091957CE1200F9E765 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B5F7F60B1957CE1200F9E765 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -71,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5248632196B94C400CB7143 /* QuartzCore.framework in Frameworks */,
 				B5F7F60A1957CE1200F9E765 /* UIKit.framework in Frameworks */,
 				B5F7F60C1957CE1200F9E765 /* Foundation.framework in Frameworks */,
 				B5F7F60E1957CE1200F9E765 /* CoreGraphics.framework in Frameworks */,
@@ -92,9 +101,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B524862D196B8E2100CB7143 /* CircleProgress */ = {
+			isa = PBXGroup;
+			children = (
+				B524862E196B8E7A00CB7143 /* CircleProgressView.h */,
+				B524862F196B8E7A00CB7143 /* CircleProgressView.m */,
+			);
+			name = CircleProgress;
+			sourceTree = "<group>";
+		};
 		B5F7F5FD1957CE1200F9E765 = {
 			isa = PBXGroup;
 			children = (
+				B5248631196B94C400CB7143 /* QuartzCore.framework */,
 				B5F7F6111957CE1200F9E765 /* playaround */,
 				B5F7F6331957CE1200F9E765 /* playaroundTests */,
 				B5F7F6081957CE1200F9E765 /* Frameworks */,
@@ -171,6 +190,7 @@
 		B5F7F6441957CE2200F9E765 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				B524862D196B8E2100CB7143 /* CircleProgress */,
 				B5F7F6451957CE2800F9E765 /* Calendar */,
 			);
 			name = Classes;
@@ -183,6 +203,8 @@
 				B5F7F6471957CE4300F9E765 /* CalendarViewController.m */,
 				B51E94ED195929A7002A67D8 /* DayCell.h */,
 				B51E94EE195929A7002A67D8 /* DayCell.m */,
+				B57FCDF819639D3B005E6C3C /* MonthCell.h */,
+				B57FCDF919639D3B005E6C3C /* MonthCell.m */,
 			);
 			name = Calendar;
 			sourceTree = "<group>";
@@ -301,6 +323,8 @@
 				B5F7F6251957CE1200F9E765 /* playaround.xcdatamodeld in Sources */,
 				B5F7F6481957CE4300F9E765 /* CalendarViewController.m in Sources */,
 				B51E94EF195929A7002A67D8 /* DayCell.m in Sources */,
+				B57FCDFA19639D3B005E6C3C /* MonthCell.m in Sources */,
+				B5248630196B8E7A00CB7143 /* CircleProgressView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,6 +428,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "playaround/playaround-Prefix.pch";
 				INFOPLIST_FILE = "playaround/playaround-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -415,6 +440,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "playaround/playaround-Prefix.pch";
 				INFOPLIST_FILE = "playaround/playaround-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

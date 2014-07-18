@@ -7,26 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CircleProgressView.h"
 
-@interface CalendarViewController : UIViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface CalendarViewController : UIViewController<UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CircularProgressViewDelegate>
 {
     NSArray *cellsInMonth;
-  //  NSArray *cellsOfMonth;
-    
-  //  NSDate *firstDateOfThisMonth;
-    
     int numberOfDays;
-  //  int numberOfWeeks;
-    
     int currentMonth;
     int currentYear;
 
     int cellViewMonth;//cell 显示哪个月份看这个参数
-    
     BOOL scrollDirectionDetermined;
+    CircleProgressView *cp;
 }
 
-//@property (nonatomic,retain) UICollectionView *calendarView;
 @property (nonatomic,retain) UICollectionView *monthsView;
 
 
