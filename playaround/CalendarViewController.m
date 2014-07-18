@@ -9,8 +9,9 @@
 #import "CalendarViewController.h"
 #import "DayCell.h"
 #import "MonthCell.h"
-//这个头用于设置背景颜色，边框颜色， uiview.layer.borderColor = [[UIColor blackColor] CGColor]
-//#import <QuartzCore/QuartzCore.h>
+
+#define DAY_VIEW_TAG 1
+#define MONTH_VIEW_TAG 0
 
 @interface CalendarViewController ()
 
@@ -57,7 +58,7 @@
     monthsView.delegate=self;
     monthsView.dataSource=self;
     monthsView.pagingEnabled = YES;
-    monthsView.tag = 0;
+    monthsView.tag = MONTH_VIEW_TAG;
     [monthsView setShowsHorizontalScrollIndicator:NO];
     
     NSIndexPath *newIndexPath = [NSIndexPath indexPathForItem:1 inSection:0];
@@ -157,7 +158,7 @@
 // number of items
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section
 {
-    if(view.tag == 1)
+    if(view.tag == DAY_VIEW_TAG)
     {
         return [cellsInMonth[section] count];
     }else{
@@ -167,7 +168,7 @@
 // 2 sections , 1 for Sun ~ Sat , 1 for day cells
 - (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView
 {
-    if(collectionView.tag == 1)
+    if(collectionView.tag == DAY_VIEW_TAG)
     {
         return [cellsInMonth count];
     }else{
@@ -177,7 +178,7 @@
 // 3 显示cell
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(cv.tag == 1)
+    if(cv.tag == DAY_VIEW_TAG)
     {
         DayCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"DayCell" forIndexPath:indexPath];
         cell.backgroundColor = [UIColor whiteColor];
@@ -218,7 +219,7 @@
         
         cell.calendarView.delegate=self;
         cell.calendarView.dataSource=self;
-        cell.calendarView.tag = 1;
+        cell.calendarView.tag = DAY_VIEW_TAG;
         
         //长按手势
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressOnDayCell:)];
@@ -243,7 +244,7 @@
 {
     // TODO: Select Item
     
-    if(collectionView.tag == 1){
+    if(collectionView.tag == DAY_VIEW_TAG){
         DayCell *cell = (DayCell*)[collectionView cellForItemAtIndexPath:indexPath];
         if(cell.validMonthDay)
         {
@@ -255,7 +256,7 @@
 {
     // TODO: Deselect item
     
-    if(collectionView.tag == 1){
+    if(collectionView.tag == DAY_VIEW_TAG){
         DayCell *cell = (DayCell*)[collectionView cellForItemAtIndexPath:indexPath];
         if(cell.validMonthDay)
         {
@@ -268,7 +269,7 @@
 // set cell size
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(collectionView.tag == 1)
+    if(collectionView.tag == DAY_VIEW_TAG)
     {   //天cell的大小
         CGSize retval = CGSizeMake(45, 25);
         if(indexPath.section == 0)
@@ -307,7 +308,7 @@
 //这个函数一边滚动一边会被调用，所以有个标志去判断是不是已经确定方向
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if(scrollView.tag != 0)
+    if(scrollView.tag != MONTH_VIEW_TAG)
         return;
     CGPoint v = [scrollView.panGestureRecognizer translationInView:scrollView.superview];
     //Fix me: 这里还是有问题的，先往右拖一点，然后猛的往左滑动，会出现错误
@@ -334,7 +335,7 @@
 //滚动完毕调用
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    if(scrollView.tag != 0)
+    if(scrollView.tag != MONTH_VIEW_TAG)
         return;
     //判断是不是切换了cell，如果有，就重新赋值当前月份，否的反过来赋值
     float contentOffsetWhenFullyScrolledRight = monthsView.frame.size.width * (3-1);

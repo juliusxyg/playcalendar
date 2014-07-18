@@ -29,6 +29,7 @@
 		B5F7F6381957CE1200F9E765 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B5F7F6361957CE1200F9E765 /* InfoPlist.strings */; };
 		B5F7F63B1957CE1200F9E765 /* playaroundTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F7F63A1957CE1200F9E765 /* playaroundTests.m */; };
 		B5F7F6481957CE4300F9E765 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F7F6471957CE4300F9E765 /* CalendarViewController.m */; };
+		B5FC96221978FFF700F487ED /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5FC96211978FFF700F487ED /* MainViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,8 @@
 		B5F7F63A1957CE1200F9E765 /* playaroundTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = playaroundTests.m; sourceTree = "<group>"; };
 		B5F7F6461957CE4300F9E765 /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		B5F7F6471957CE4300F9E765 /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
+		B5FC96201978FFF700F487ED /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		B5FC96211978FFF700F487ED /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +193,7 @@
 		B5F7F6441957CE2200F9E765 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				B5FC961F1978FFD600F487ED /* Main */,
 				B524862D196B8E2100CB7143 /* CircleProgress */,
 				B5F7F6451957CE2800F9E765 /* Calendar */,
 			);
@@ -207,6 +211,15 @@
 				B57FCDF919639D3B005E6C3C /* MonthCell.m */,
 			);
 			name = Calendar;
+			sourceTree = "<group>";
+		};
+		B5FC961F1978FFD600F487ED /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				B5FC96201978FFF700F487ED /* MainViewController.h */,
+				B5FC96211978FFF700F487ED /* MainViewController.m */,
+			);
+			name = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -325,6 +338,7 @@
 				B51E94EF195929A7002A67D8 /* DayCell.m in Sources */,
 				B57FCDFA19639D3B005E6C3C /* MonthCell.m in Sources */,
 				B5248630196B8E7A00CB7143 /* CircleProgressView.m in Sources */,
+				B5FC96221978FFF700F487ED /* MainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

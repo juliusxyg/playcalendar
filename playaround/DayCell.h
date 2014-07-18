@@ -11,7 +11,7 @@
 @interface DayCell : UICollectionViewCell
 
 @property (nonatomic,retain) UILabel *dayLabel;
-@property BOOL validMonthDay;
+@property (nonatomic,assign) BOOL validMonthDay;
 
 -(void)setDayLabelText:(NSString*)text;
 
