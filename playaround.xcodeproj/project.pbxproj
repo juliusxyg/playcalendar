@@ -11,6 +11,8 @@
 		B5248630196B8E7A00CB7143 /* CircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = B524862F196B8E7A00CB7143 /* CircleProgressView.m */; };
 		B5248632196B94C400CB7143 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5248631196B94C400CB7143 /* QuartzCore.framework */; };
 		B57FCDFA19639D3B005E6C3C /* MonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B57FCDF919639D3B005E6C3C /* MonthCell.m */; };
+		B5EF043E197CA4210019E275 /* LeftPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EF043D197CA4210019E275 /* LeftPanelViewController.m */; };
+		B5EF0441197CA4330019E275 /* CenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EF0440197CA4330019E275 /* CenterViewController.m */; };
 		B5F7F60A1957CE1200F9E765 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F7F6091957CE1200F9E765 /* UIKit.framework */; };
 		B5F7F60C1957CE1200F9E765 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F7F60B1957CE1200F9E765 /* Foundation.framework */; };
 		B5F7F60E1957CE1200F9E765 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F7F60D1957CE1200F9E765 /* CoreGraphics.framework */; };
@@ -50,6 +52,10 @@
 		B5248631196B94C400CB7143 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B57FCDF819639D3B005E6C3C /* MonthCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonthCell.h; sourceTree = "<group>"; };
 		B57FCDF919639D3B005E6C3C /* MonthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonthCell.m; sourceTree = "<group>"; };
+		B5EF043C197CA4210019E275 /* LeftPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftPanelViewController.h; sourceTree = "<group>"; };
+		B5EF043D197CA4210019E275 /* LeftPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftPanelViewController.m; sourceTree = "<group>"; };
+		B5EF043F197CA4330019E275 /* CenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterViewController.h; sourceTree = "<group>"; };
+		B5EF0440197CA4330019E275 /* CenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterViewController.m; sourceTree = "<group>"; };
 		B5F7F6061957CE1200F9E765 /* playaround.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = playaround.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5F7F6091957CE1200F9E765 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B5F7F60B1957CE1200F9E765 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -218,6 +224,10 @@
 			children = (
 				B5FC96201978FFF700F487ED /* MainViewController.h */,
 				B5FC96211978FFF700F487ED /* MainViewController.m */,
+				B5EF043C197CA4210019E275 /* LeftPanelViewController.h */,
+				B5EF043D197CA4210019E275 /* LeftPanelViewController.m */,
+				B5EF043F197CA4330019E275 /* CenterViewController.h */,
+				B5EF0440197CA4330019E275 /* CenterViewController.m */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -339,6 +349,8 @@
 				B57FCDFA19639D3B005E6C3C /* MonthCell.m in Sources */,
 				B5248630196B8E7A00CB7143 /* CircleProgressView.m in Sources */,
 				B5FC96221978FFF700F487ED /* MainViewController.m in Sources */,
+				B5EF043E197CA4210019E275 /* LeftPanelViewController.m in Sources */,
+				B5EF0441197CA4330019E275 /* CenterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

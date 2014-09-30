@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CenterViewController.h"
+#import "LeftPanelViewController.h"
 
-@interface MainViewController : UIViewController
+@interface MainViewController : UIViewController <CenterViewControllerDelegate>
+
+@property (nonatomic, strong) CenterViewController *centerViewController;
+@property (nonatomic, strong) LeftPanelViewController *leftPanelViewController;
 
 @end
